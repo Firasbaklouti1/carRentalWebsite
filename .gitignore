@@ -1,0 +1,29 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.swp
+*~
+
+# Log files
+*.log
+error_log
+access_log
+
+# Environment specific files
+.env
+.env.local
+.env.*.local
