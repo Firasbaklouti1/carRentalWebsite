@@ -11,14 +11,14 @@ if (!is_admin_logged_in()) {
 }
 
 $conn = Connect();
-$admin_id = $_SESSION['admin_id'];
+$admin_id = $_SESSION['user_id'];
 
 // Set current page for nav highlighting
 $current_page = 'profile';
 $page_title = 'Profile';
 
 // Get admin details
-$sql = "SELECT * FROM admins WHERE admin_id = ?";
+$sql = "SELECT * FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $admin_id);
 $stmt->execute();
@@ -70,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($new_password)) {
             // Update with new password
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $sql = "UPDATE admins SET name = ?, email = ?, phone = ?, password = ? WHERE admin_id = ?";
+            $sql = "UPDATE users SET name = ?, email = ?, phone = ?, password = ? WHERE user_id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssssi", $name, $email, $phone, $hashed_password, $admin_id);
         } else {
             // Update without password
-            $sql = "UPDATE admins SET name = ?, email = ?, phone = ? WHERE admin_id = ?";
+            $sql = "UPDATE users SET name = ?, email = ?, phone = ? WHERE user_id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssi", $name, $email, $phone, $admin_id);
         }
