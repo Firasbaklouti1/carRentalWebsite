@@ -11,6 +11,7 @@ if (ENVIRONMENT === 'development') {
     error_reporting(0);
     ini_set('display_errors', 0);
 }
+define('SITE_URL', 'http://localhost/carrentalphp-main');
 
 function Connect() {
     $servername = "localhost";

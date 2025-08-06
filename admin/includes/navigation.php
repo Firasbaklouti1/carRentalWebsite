@@ -33,6 +33,12 @@
                         <i class="fas fa-users"></i> Users
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) === 'index.php' ? 'active' : '';
+                     ?>" href=<?php echo SITE_URL . "/index.php"?>>
+                        <i class="fas fa-users"></i> Back to Website
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">

@@ -1,14 +1,15 @@
 <?php
-session_start();
+session_start();    
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
 
 // Check if admin is logged in
-if (!is_admin_logged_in()) {
+/*if (!is_admin_logged_in()) {
     header('Location: ../login.php');
     exit;
 }
+    */
 
 // Get database connection
 $conn = Connect();

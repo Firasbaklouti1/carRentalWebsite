@@ -1,12 +1,12 @@
 <?php
 require_once 'includes/auth.php';
 
-if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true) {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'user') {
     redirect('index.php');
 }
 
 // If trying to access user login while logged in as admin, redirect to admin dashboard
-if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     redirect('admin/dashboard.php');
 }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $error = "Please enter both email/username and password";
     } else {
-        if (user_login($email, $password)) {
+        if (login($email, $password)) {
             redirect('index.php', 'Welcome back!', 'success');
         } else {
             $error = "Invalid email/username or password";

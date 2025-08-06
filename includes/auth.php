@@ -5,56 +5,35 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once 'config.php';
 require_once 'functions.php';
 
-// Admin login function
-function admin_login($username, $password)
+// Unified login function for both admin and users
+function login($identifier, $password)
 {
     $conn = Connect();
 
-    $stmt = $conn->prepare("SELECT admin_id, username, name, password FROM admins WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 1) {
-        $admin = $result->fetch_assoc();
-        if (password_verify($password, $admin['password'])) {
-            // Set admin session variables
-            $_SESSION['admin_id'] = $admin['admin_id'];
-            $_SESSION['username'] = $admin['username'];
-            $_SESSION['name'] = $admin['name'];
-            $_SESSION['admin_logged_in'] = true;
-            return true;
-        }
-    }
-    return false;
-}
-
-// User login function
-function user_login($email, $password)
-{
-    $conn = Connect();
-
-    // Try login with email first
-    $stmt = $conn->prepare("SELECT user_id, email, username, name, password FROM users WHERE email = ? OR username = ?");
-    $stmt->bind_param("ss", $email, $email); // Try both email and username fields
+    $stmt = $conn->prepare("SELECT user_id, username, name, email, phone, password, role 
+                            FROM users 
+                            WHERE email = ? OR username = ?");
+    $stmt->bind_param("ss", $identifier, $identifier);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
-            // Set user session variables
+            // Set session variables
             $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['email'] = $user['email'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
             $_SESSION['name'] = $user['name'];
-            $_SESSION['user_logged_in'] = true;
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['logged_in'] = true;
+
             return true;
         }
     }
-    
-    // For debugging
-    error_log("Login attempt failed for user: " . $email);
+
+    // Debugging
+    error_log("Login attempt failed for identifier: " . $identifier);
     return false;
 }
 
@@ -74,23 +53,19 @@ function register($username, $name, $phone, $email, $password)
     // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     
-    // Insert new user
-    $stmt = $conn->prepare("INSERT INTO users (username, name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $username, $name, $email, $phone, $hashed_password);
+    // Insert new user (role = 'user' by default)
+    $role = 'user';
+    $stmt = $conn->prepare("INSERT INTO users (username, name, email, phone, password, role) 
+                            VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $username, $name, $email, $phone, $hashed_password, $role);
     
-    if ($stmt->execute()) {
-        return true;
-    }
-    return false;
+    return $stmt->execute();
 }
 
 // Logout function
 function logout()
 {
-    // Clear all session variables
     $_SESSION = array();
-    
-    // Destroy the session
     session_destroy();
 }
 
@@ -104,35 +79,32 @@ function email_exists($email)
     return $stmt->get_result()->num_rows > 0;
 }
 
-// Get user details
+// Get user details by ID
 function get_user_details($user_id)
 {
     $conn = Connect();
-    $stmt = $conn->prepare("SELECT user_id, name, email, phone FROM users WHERE user_id = ?");
+    $stmt = $conn->prepare("SELECT user_id, username, name, email, phone, role 
+                            FROM users 
+                            WHERE user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
 
-// Get admin details
-function get_admin_details($admin_id)
+// Check if logged in (any role)
+function is_logged_in()
 {
-    $conn = Connect();
-    $stmt = $conn->prepare("SELECT admin_id, username, name, email, phone FROM admins WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    return $stmt->get_result()->fetch_assoc();
+    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 }
 
-// Check if user is logged in
-function is_user_logged_in()
-{
-    return isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
-}
-
-// Check if admin is logged in
+// Role-based check
 function is_admin_logged_in()
 {
-    return isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
+    return is_logged_in() && isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+}
+
+function is_user_logged_in()
+{
+    return is_logged_in() && isset($_SESSION['role']) && $_SESSION['role'] === 'user';
 }
 ?>

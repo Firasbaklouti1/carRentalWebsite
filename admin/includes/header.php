@@ -23,10 +23,12 @@
         session_start();
     }
     
-    if (!isset($_SESSION['admin_logged_in'])) {
-        header('Location: login.php');
+    if (!isset($_SESSION['logged_in']) || $_SESSION['role'] !== 'admin') {
+        header('Location: ' . SITE_URL . '/login.php');  // points to main login
         exit();
     }
+
+    
     
     // Include navigation
     require_once __DIR__ . '/navigation.php';
