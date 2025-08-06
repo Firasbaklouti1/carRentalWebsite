@@ -2,7 +2,7 @@
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
 require_once '../includes/auth.php';
-
+require_once '../includes/init.php';
 // Ensure user is logged in as admin
 if (!is_admin_logged_in()) {
     header('Location: ../login.php');
@@ -218,9 +218,9 @@ include 'includes/header.php';
 
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">Manage Cars</h1>
+        <h1 class="h3 mb-0"><?= __('Manage Cars'); ?></h1>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCarModal">
-            <i class="fas fa-plus me-2"></i>Add New Car
+            <i class="fas fa-plus me-2"></i><?= __('Add New Car'); ?>
         </button>
     </div>
 
@@ -316,7 +316,7 @@ include 'includes/header.php';
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit Car</h5>
+                                <h5 class="modal-title"><?= __('Edit Car'); ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <form action="cars.php" method="POST" enctype="multipart/form-data">
@@ -327,18 +327,18 @@ include 'includes/header.php';
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Car Name</label>
+                                                <label class="form-label"><?= __('Car Name'); ?></label>
                                                 <input type="text" name="car_name" class="form-control" value="<?php echo htmlspecialchars($car['car_name']); ?>" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Car Type</label>
+                                                <label class="form-label"><?= __('Car Type'); ?></label>
                                                 <input type="text" name="car_type" class="form-control" 
                                                        value="<?php echo htmlspecialchars($car['car_type'] ?? ''); ?>" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Fuel Type</label>
+                                                <label class="form-label"><?= __('Fuel Type'); ?></label>
                                                 <select name="fuel_type" class="form-select" required>
-                                                    <option value="">Select Fuel Type</option>
+                                                    <option value=""><?= __('Select Fuel Type'); ?></option>
                                                     <option value="Petrol" <?php echo ($car['fuel_type'] ?? '') === 'Petrol' ? 'selected' : ''; ?>>Petrol</option>
                                                     <option value="Diesel" <?php echo ($car['fuel_type'] ?? '') === 'Diesel' ? 'selected' : ''; ?>>Diesel</option>
                                                     <option value="Hybrid" <?php echo ($car['fuel_type'] ?? '') === 'Hybrid' ? 'selected' : ''; ?>>Hybrid</option>
@@ -346,16 +346,16 @@ include 'includes/header.php';
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Price per Day</label>
+                                                <label class="form-label"><?= __('Price per Day'); ?></label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text">Rs.</span>
+                                                    <span class="input-group-text"><?= __('Rs.'); ?></span>
                                                     <input type="number" name="car_price" class="form-control" value="<?php echo $car['price']; ?>" required min="0" step="0.01">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Current Image</label>
+                                                <label class="form-label"><?= __('Current Image'); ?></label>
                                                 <div class="border rounded p-2 text-center" style="height: 200px; background: #f8f9fa;">
                                                     <?php if ($car['car_image']): ?>
                                                         <img src="../<?php echo htmlspecialchars($car['car_image']); ?>" 
@@ -370,16 +370,16 @@ include 'includes/header.php';
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Update Image</label>
+                                                <label class="form-label"><?= __('Update Image'); ?></label>
                                                 <input type="file" name="car_image" class="form-control" accept="image/*">
-                                                <div class="form-text">Leave empty to keep current image</div>
+                                                <div class="form-text"><?= __('Leave empty to keep current image'); ?></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('Cancel'); ?></button>
+                                    <button type="submit" class="btn btn-primary"><?= __('Save Changes'); ?></button>
                                 </div>
                             </form>
                         </div>
@@ -389,7 +389,7 @@ include 'includes/header.php';
         <?php else: ?>
             <div class="col">
                 <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i>No cars found. Add your first car to get started!
+                    <i class="fas fa-info-circle me-2"></i><?= __('No cars found. Add your first car to get started!'); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -401,7 +401,7 @@ include 'includes/header.php';
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Car</h5>
+                <h5 class="modal-title"><?= __('Add New Car'); ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="cars.php" method="POST" enctype="multipart/form-data">
@@ -409,40 +409,40 @@ include 'includes/header.php';
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Car Name</label>
+                            <label class="form-label"><?= __('Car Name'); ?></label>
                             <input type="text" name="car_name" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Car Type</label>
+                            <label class="form-label"><?= __('Car Type'); ?></label>
                             <input type="text" name="car_type" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Fuel Type</label>
+                            <label class="form-label"><?= __('Fuel Type'); ?></label>
                             <select name="fuel_type" class="form-select" required>
-                                <option value="">Select Fuel Type</option>
-                                <option value="Petrol">Petrol</option>
-                                <option value="Diesel">Diesel</option>
-                                <option value="Hybrid">Hybrid</option>
-                                <option value="Electric">Electric</option>
+                                <option value=""><?= __('Select Fuel Type'); ?></option>
+                                <option value="Petrol"><?= __('Petrol'); ?></option>
+                                <option value="Diesel"><?= __('Diesel'); ?></option>
+                                <option value="Hybrid"><?= __('Hybrid'); ?></option>
+                                <option value="Electric"><?= __('Electric'); ?></option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Price per Day</label>
+                            <label class="form-label"><?= __('Price per Day'); ?></label>
                             <div class="input-group">
-                                <span class="input-group-text">Rs.</span>
+                                <span class="input-group-text"><?= __('Rs.'); ?></span>
                                 <input type="number" name="car_price" class="form-control" required min="0" step="0.01">
                             </div>
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Car Image</label>
+                            <label class="form-label"><?= __('Car Image'); ?></label>
                             <input type="file" name="car_image" class="form-control" accept="image/*" required>
-                            <small class="text-muted">Upload a clear image of the car. Maximum size: 5MB</small>
+                            <small class="text-muted"><?= __('Upload a clear image of the car. Maximum size: 5MB'); ?></small>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Car</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('Cancel'); ?></button>
+                    <button type="submit" class="btn btn-primary"><?= __('Add Car'); ?></button>
                 </div>
             </form>
         </div>

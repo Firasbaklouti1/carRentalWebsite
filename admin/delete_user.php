@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/auth.php';
-
+require_once '../includes/init.php';
 // Check if admin is logged in
 if (!is_admin_logged_in()) {
     header('Content-Type: application/json');

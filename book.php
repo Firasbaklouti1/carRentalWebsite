@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/auth.php';
 require_once 'includes/functions.php';
+require_once 'includes/init.php';
 
 // Check if user is logged in
 if (!is_user_logged_in()) {
@@ -48,7 +49,7 @@ if (isset($_GET['car_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book <?php echo htmlspecialchars($car['car_name']); ?> - Car Rental System</title>
+    <title>Book <?php echo htmlspecialchars($car['car_name']); ?> <?= __('- Car Rental System'); ?></title>
     <?php include 'includes/header.php'; ?>
     <style>
         .booking-form { max-width: 800px; margin: 0 auto; }
@@ -92,16 +93,16 @@ if (isset($_GET['car_id'])) {
                             <h4 class="mb-3"><?php echo htmlspecialchars($car['car_name']); ?></h4>
                             <div class="mb-3">
                                 <span class="badge bg-secondary me-2"><?php echo htmlspecialchars($car['car_type']); ?></span>
-                                <span class="badge bg-success">Available</span>
+                                <span class="badge bg-success"><?= __('Available'); ?></span>
                             </div>
                             <div class="rental-summary">
-                                <h5 class="mb-3">Rental Summary</h5>
+                                <h5 class="mb-3"><?= __('Rental Summary'); ?></h5>
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>Daily Rate:</span>
+                                    <span><?= __('Daily Rate'); ?>:</span>
                                     <span>Rs. <?php echo number_format($car['price'], 2); ?></span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>Number of Days:</span>
+                                    <span><?= __('Number of Days:'); ?></span>
                                     <span id="totalDays">0</span>
                                 </div>
                                 <hr>
@@ -121,29 +122,29 @@ if (isset($_GET['car_id'])) {
                         
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="pickup_date" class="form-label">Pickup Date</label>
+                                <label for="pickup_date" class="form-label"><?= __('Pickup Date'); ?></label>
                                 <input type="text" class="form-control" id="pickup_date" name="pickup_date" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="return_date" class="form-label">Return Date</label>
+                                <label for="return_date" class="form-label"><?= __('Return Date'); ?></label>
                                 <input type="text" class="form-control" id="return_date" name="return_date" required>
                             </div>
                             
                             <div class="col-12">
-                                <label for="pickup_location" class="form-label">Pickup Location</label>
+                                <label for="pickup_location" class="form-label"><?= __('Pickup Location'); ?></label>
                                 <input type="text" class="form-control" id="pickup_location" name="pickup_location" 
                                        placeholder="Enter your preferred pickup location" required>
                             </div>
 
                             <div class="col-12">
-                                <label for="notes" class="form-label">Special Requests (Optional)</label>
+                                <label for="notes" class="form-label"><?= __('Special Requests (Optional)'); ?></label>
                                 <textarea class="form-control" id="notes" name="notes" rows="3" 
                                           placeholder="Any special requirements or notes for your booking"></textarea>
                             </div>
 
                             <div class="col-12 mt-4">
                                 <button type="submit" class="btn btn-primary btn-lg w-100">
-                                    <i class="fas fa-calendar-check me-2"></i>Confirm Booking
+                                    <i class="fas fa-calendar-check me-2"></i><?= __('Confirm Booking'); ?>
                                 </button>
                             </div>
                         </div>

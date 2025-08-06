@@ -3,6 +3,7 @@ session_start();
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
+require_once '../includes/init.php';
 
 // Check if admin is logged in
 /*if (!is_admin_logged_in()) {
@@ -79,7 +80,7 @@ include 'includes/header.php';
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">Dashboard Overview</h1>
+        <h1 class="h3 mb-0"><?= __('Dashboard Overview'); ?></h1>
     </div>
     
     <!-- Stats Cards -->
@@ -94,13 +95,13 @@ include 'includes/header.php';
                         </span>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h3 class="h6 mb-2">Total Cars</h3>
-                        <div class="count"><?php echo $cars_count; ?></div>
-                        <p class="text-muted small mb-0">Available for Rent</p>
+                        <h3 class="h6 mb-2"><?= __('Total Cars'); ?></h3>
+                        <div class="count"><?= $cars_count; ?></div>
+                        <p class="text-muted small mb-0"><?= __('Available for Rent'); ?></p>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <a href="cars.php" class="btn btn-sm btn-light">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                    <a href="cars.php" class="btn btn-sm btn-light"><?= __('View Details'); ?> <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
             </div>
         </div>
@@ -115,13 +116,13 @@ include 'includes/header.php';
                         </span>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h3 class="h6 mb-2">Total Bookings</h3>
-                        <div class="count"><?php echo $bookings_count; ?></div>
-                        <p class="text-muted small mb-0">All Time Bookings</p>
+                        <h3 class="h6 mb-2"><?= __('Total Bookings'); ?></h3>
+                        <div class="count"><?= $bookings_count; ?></div>
+                        <p class="text-muted small mb-0"><?= __('All Time Bookings'); ?></p>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <a href="bookings.php" class="btn btn-sm btn-light">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                    <a href="bookings.php" class="btn btn-sm btn-light"><?= __('View Details'); ?> <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
             </div>
         </div>
@@ -136,13 +137,13 @@ include 'includes/header.php';
                         </span>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h3 class="h6 mb-2">Total Users</h3>
-                        <div class="count"><?php echo $users_count; ?></div>
-                        <p class="text-muted small mb-0">Registered Users</p>
+                        <h3 class="h6 mb-2"><?= __('Total Users'); ?></h3>
+                        <div class="count"><?= $users_count; ?></div>
+                        <p class="text-muted small mb-0"><?= __('Registered Users'); ?></p>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <a href="users.php" class="btn btn-sm btn-light">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                    <a href="users.php" class="btn btn-sm btn-light"><?= __('View Details'); ?> <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
             </div>
         </div>
@@ -157,13 +158,13 @@ include 'includes/header.php';
                         </span>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h3 class="h6 mb-2">Recent Enquiries</h3>
-                        <div class="count"><?php echo $enquiries_count; ?></div>
-                        <p class="text-muted small mb-0">Last 30 Days</p>
+                        <h3 class="h6 mb-2"><?= __('Recent Enquiries'); ?></h3>
+                        <div class="count"><?= $enquiries_count; ?></div>
+                        <p class="text-muted small mb-0"><?= __('Last 30 Days'); ?></p>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <a href="enquiries.php" class="btn btn-sm btn-light">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                    <a href="enquiries.php" class="btn btn-sm btn-light"><?= __('View Details'); ?> <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
             </div>
         </div>
@@ -176,17 +177,16 @@ include 'includes/header.php';
             <div class="card h-100">
                 <div class="card-header bg-white py-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Bookings</h5>
-                        <a href="bookings.php" class="btn btn-sm btn-primary">View All</a>
+                        <h5 class="mb-0"><?= __('Recent Bookings'); ?></h5>
+                        <a href="bookings.php" class="btn btn-sm btn-primary"><?= __('View All'); ?></a>
                     </div>
                 </div>
                 <div class="card-body p-0">
                     <?php
                     try {
                         if (in_array('bookings', $tables)) {
-                            // Check required columns
                             $bookings_cols = $conn->query("SHOW COLUMNS FROM bookings");
-                            $booking_columns = array();
+                            $booking_columns = [];
                             while ($col = $bookings_cols->fetch_assoc()) {
                                 $booking_columns[] = $col['Field'];
                             }
@@ -208,15 +208,14 @@ include 'includes/header.php';
                                 echo '<table class="table table-hover mb-0">';
                                 echo '<thead class="table-light">';
                                 echo '<tr>';
-                                echo '<th class="border-0">Customer</th>';
-                                echo '<th class="border-0">Car</th>';
-                                echo '<th class="border-0">Amount</th>';
-                                echo '<th class="border-0">Status</th>';
+                                echo '<th class="border-0">'.__('Customer').'</th>';
+                                echo '<th class="border-0">'.__('Car').'</th>';
+                                echo '<th class="border-0">'.__('Amount').'</th>';
+                                echo '<th class="border-0">'.__('Status').'</th>';
                                 echo '</tr>';
                                 echo '</thead>';
                                 echo '<tbody>';
                                 while ($booking = $recent_bookings->fetch_assoc()) {
-                                    // Default to 'pending' if status is not set
                                     $status = $booking['status'] ?? 'pending';
                                     $status_class = match(strtolower($status)) {
                                         'confirmed' => 'success',
@@ -224,10 +223,10 @@ include 'includes/header.php';
                                         default => 'warning'
                                     };
                                     echo '<tr>';
-                                    echo '<td>' . htmlspecialchars($booking['customer_name']) . '</td>';
-                                    echo '<td>' . htmlspecialchars($booking['car_name']) . '</td>';
-                                    echo '<td>Rs. ' . number_format($booking['total_amount'] ?? 0, 2) . '</td>';
-                                    echo '<td><span class="badge bg-' . $status_class . '">' . ucfirst($status) . '</span></td>';
+                                    echo '<td>'.htmlspecialchars($booking['customer_name']).'</td>';
+                                    echo '<td>'.htmlspecialchars($booking['car_name']).'</td>';
+                                    echo '<td>Rs. '.number_format($booking['total_amount'] ?? 0, 2).'</td>';
+                                    echo '<td><span class="badge bg-'.$status_class.'">'.__($status).'</span></td>';
                                     echo '</tr>';
                                 }
                                 echo '</tbody>';
@@ -235,17 +234,17 @@ include 'includes/header.php';
                                 echo '</div>';
                             } else {
                                 echo '<div class="text-center py-4">';
-                                echo '<p class="text-muted mb-0">No recent bookings</p>';
+                                echo '<p class="text-muted mb-0">'.__('No recent bookings').'</p>';
                                 echo '</div>';
                             }
                         } else {
                             echo '<div class="text-center py-4">';
-                            echo '<p class="text-muted mb-0">Bookings table not found</p>';
+                            echo '<p class="text-muted mb-0">'.__('Bookings table not found').'</p>';
                             echo '</div>';
                         }
                     } catch (Exception $e) {
                         echo '<div class="text-center py-4">';
-                        echo '<p class="text-danger mb-0">Error loading recent bookings</p>';
+                        echo '<p class="text-danger mb-0">'.__('Error loading recent bookings').'</p>';
                         echo '</div>';
                         error_log("Error loading recent bookings: " . $e->getMessage());
                     }
@@ -259,17 +258,16 @@ include 'includes/header.php';
             <div class="card h-100">
                 <div class="card-header bg-white py-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recently Added Cars</h5>
-                        <a href="cars.php" class="btn btn-sm btn-primary">View All</a>
+                        <h5 class="mb-0"><?= __('Recently Added Cars'); ?></h5>
+                        <a href="cars.php" class="btn btn-sm btn-primary"><?= __('View All'); ?></a>
                     </div>
                 </div>
                 <div class="card-body p-0">
                     <?php
                     try {
                         if (in_array('cars', $tables)) {
-                            // Check required columns
                             $cars_cols = $conn->query("SHOW COLUMNS FROM cars");
-                            $car_columns = array();
+                            $car_columns = [];
                             while ($col = $cars_cols->fetch_assoc()) {
                                 $car_columns[] = $col['Field'];
                             }
@@ -288,23 +286,22 @@ include 'includes/header.php';
                                 echo '<table class="table table-hover mb-0">';
                                 echo '<thead class="table-light">';
                                 echo '<tr>';
-                                echo '<th class="border-0">Car</th>';
-                                echo '<th class="border-0">Type</th>';
-                                echo '<th class="border-0">Price/Day</th>';
-                                echo '<th class="border-0">Status</th>';
+                                echo '<th class="border-0">'.__('Car').'</th>';
+                                echo '<th class="border-0">'.__('Type').'</th>';
+                                echo '<th class="border-0">'.__('Price/Day').'</th>';
+                                echo '<th class="border-0">'.__('Status').'</th>';
                                 echo '</tr>';
                                 echo '</thead>';
                                 echo '<tbody>';
                                 while ($car = $recent_cars->fetch_assoc()) {
-                                    // Default to 'unavailable' if status is not set
                                     $status = $car['status'] ?? 'unavailable';
                                     $status_class = $status === 'available' ? 'success' : 'warning';
                                     
                                     echo '<tr>';
-                                    echo '<td>' . htmlspecialchars($car['car_name']) . '</td>';
-                                    echo '<td>' . htmlspecialchars($car['car_type']) . '</td>';
-                                    echo '<td>Rs. ' . number_format($car['price_per_day'] ?? 0, 2) . '</td>';
-                                    echo '<td><span class="badge bg-' . $status_class . '">' . ucfirst($status) . '</span></td>';
+                                    echo '<td>'.htmlspecialchars($car['car_name']).'</td>';
+                                    echo '<td>'.htmlspecialchars($car['car_type']).'</td>';
+                                    echo '<td>Rs. '.number_format($car['price_per_day'] ?? 0, 2).'</td>';
+                                    echo '<td><span class="badge bg-'.$status_class.'">'.__($status).'</span></td>';
                                     echo '</tr>';
                                 }
                                 echo '</tbody>';
@@ -312,17 +309,17 @@ include 'includes/header.php';
                                 echo '</div>';
                             } else {
                                 echo '<div class="text-center py-4">';
-                                echo '<p class="text-muted mb-0">No cars added yet</p>';
+                                echo '<p class="text-muted mb-0">'.__('No cars added yet').'</p>';
                                 echo '</div>';
                             }
                         } else {
                             echo '<div class="text-center py-4">';
-                            echo '<p class="text-muted mb-0">Cars table not found</p>';
+                            echo '<p class="text-muted mb-0">'.__('Cars table not found').'</p>';
                             echo '</div>';
                         }
                     } catch (Exception $e) {
                         echo '<div class="text-center py-4">';
-                        echo '<p class="text-danger mb-0">Error loading recent cars</p>';
+                        echo '<p class="text-danger mb-0">'.__('Error loading recent cars').'</p>';
                         echo '</div>';
                         error_log("Error loading recent cars: " . $e->getMessage());
                     }
@@ -332,6 +329,7 @@ include 'includes/header.php';
         </div>
     </div>
 </div>
+
 
 <?php 
 $conn->close();

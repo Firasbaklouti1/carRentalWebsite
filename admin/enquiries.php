@@ -2,7 +2,7 @@
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
 require_once '../includes/auth.php';
-
+require_once '../includes/init.php';
 // Ensure user is logged in as admin
 if (!is_admin_logged_in()) {
     header('Location: login.php');

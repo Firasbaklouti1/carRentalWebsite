@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
-
+require_once '../includes/init.php';
 // Ensure user is logged in as admin
 if (!is_admin_logged_in()) {
     header('Location: login.php');
@@ -19,7 +19,7 @@ include 'includes/header.php';
 
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">Manage Enquiries</h1>
+        <h1 class="h3 mb-0"><?= __('Manage Enquiries'); ?></h1>
     </div>
 
     <div class="card">
@@ -28,11 +28,11 @@ include 'includes/header.php';
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Subject</th>
-                            <th>Message</th>
+                            <th><?= __('Date'); ?></th>
+                            <th><?= __('Name'); ?></th>
+                            <th><?= __('Email'); ?></th>
+                            <th><?= __('Subject'); ?></th>
+                            <th><?= __('Message'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +54,7 @@ include 'includes/header.php';
                             <tr>
                                 <td colspan="5" class="text-center py-4">
                                     <i class="fas fa-envelope fa-2x mb-3 text-muted d-block"></i>
-                                    <p class="mb-0 text-muted">No enquiries found</p>
+                                    <p class="mb-0 text-muted"><?= __('No enquiries found'); ?></p>
                                 </td>
                             </tr>
                         <?php endif; ?>

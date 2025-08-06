@@ -1,11 +1,14 @@
 <?php
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
+require_once '../includes/init.php';
 
 // Ensure only admin can run this
 if (!is_admin_logged_in()) {
     die('Unauthorized access');
 }
+
+
 
 $conn = Connect();
 

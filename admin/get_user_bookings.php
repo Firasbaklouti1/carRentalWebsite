@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/auth.php';
-
+require_once '../includes/init.php';
 // Check if admin is logged in
 if (!is_admin_logged_in()) {
     die('Unauthorized access');
@@ -48,10 +48,10 @@ $bookings = $stmt->get_result();
         <thead>
             <tr>
                 <th>#</th>
-                <th>Car</th>
-                <th>From Date</th>
-                <th>To Date</th>
-                <th>Status</th>
+                <th><?= __('Car'); ?></th>
+                <th><?= __('From Date'); ?></th>
+                <th><?= __('To Date'); ?></th>
+                <th><?= __('Status'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -74,7 +74,7 @@ $bookings = $stmt->get_result();
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="5" class="text-center py-3">No bookings found</td>
+                    <td colspan="5" class="text-center py-3"><?= __('No bookings found'); ?></td>
                 </tr>
             <?php endif; ?>
         </tbody>

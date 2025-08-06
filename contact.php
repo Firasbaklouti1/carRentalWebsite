@@ -2,6 +2,7 @@
 require_once 'includes/auth.php'; 
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
+require_once 'includes/init.php';
 
 $conn = Connect();
 
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Car Rental System</title>
+    <title><?= __('Contact Us - Car Rental System'); ?></title>
     <?php include 'includes/header.php'; ?>
 </head>
 <body class="bg-light">
@@ -64,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Contact Us</h2>
+                        <h2 class="text-center mb-4"><?= __('Contact Us'); ?></h2>
                         
                         <?php if (isset($_SESSION['message'])): ?>
                             <div class="alert alert-<?php echo $_SESSION['message_type']; ?> alert-dismissible fade show" role="alert">
@@ -79,24 +80,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <form method="POST" action="">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label"><?= __('Name'); ?></label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
+                                <label for="email" class="form-label"><?= __('Email'); ?></label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
+                                <label for="subject" class="form-label"><?= __('Subject'); ?></label>
                                 <input type="text" class="form-control" id="subject" name="subject" required>
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
+                                <label for="message" class="form-label"><?= __('Message'); ?></label>
                                 <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                    <i class="fas fa-paper-plane me-2"></i><?= __('Send Message'); ?>
                                 </button>
                             </div>
                         </form>

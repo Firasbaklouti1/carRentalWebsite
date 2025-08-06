@@ -3,7 +3,7 @@ session_start();
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
-
+require_once '../includes/init.php';
 // Ensure user is logged in as admin
 if (!is_admin_logged_in()) {
     header('Location: ../login.php');
@@ -99,7 +99,7 @@ include 'includes/header.php';
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="card-title h5 mb-0">Edit Profile</h3>
+                    <h3 class="card-title h5 mb-0"><?= __('Edit Profile'); ?></h3>
                 </div>
                 <div class="card-body">
                     <?php if (isset($_SESSION['success'])): ?>
@@ -115,7 +115,7 @@ include 'includes/header.php';
                         <div class="alert alert-danger">
                             <ul class="mb-0">
                                 <?php foreach ($errors as $error): ?>
-                                    <li><?php echo $error; ?></li>
+                                    <li><?= $error; ?></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
@@ -124,51 +124,50 @@ include 'includes/header.php';
                     <form method="POST" action="">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="name" class="form-label">Full Name</label>
+                                <label for="name" class="form-label"><?= __('Full Name'); ?></label>
                                 <input type="text" class="form-control" id="name" name="name" 
-                                       value="<?php echo htmlspecialchars($admin['name']); ?>" required>
+                                       value="<?= htmlspecialchars($admin['name']); ?>" required>
                             </div>
                             
                             <div class="col-md-6">
-                                <label for="email" class="form-label">Email Address</label>
+                                <label for="email" class="form-label"><?= __('Email Address'); ?></label>
                                 <input type="email" class="form-control" id="email" name="email" 
-                                       value="<?php echo htmlspecialchars($admin['email']); ?>" required>
+                                       value="<?= htmlspecialchars($admin['email']); ?>" required>
                             </div>
 
                             <div class="col-12">
-                                <label for="phone" class="form-label">Phone Number</label>
+                                <label for="phone" class="form-label"><?= __('Phone Number'); ?></label>
                                 <input type="tel" class="form-control" id="phone" name="phone" 
-                                       value="<?php echo htmlspecialchars($admin['phone']); ?>" required>
+                                       value="<?= htmlspecialchars($admin['phone']); ?>" required>
                             </div>
 
                             <div class="col-12">
                                 <hr>
-                                <h5>Change Password</h5>
-                                <p class="text-muted small">Leave blank if you don't want to change your password</p>
+                                <h5><?= __('Change Password'); ?></h5>
+                                <p class="text-muted small"><?= __('Leave blank if you don\'t want to change your password'); ?></p>
                             </div>
 
                             <div class="col-12">
-                                <label for="current_password" class="form-label">Current Password</label>
+                                <label for="current_password" class="form-label"><?= __('Current Password'); ?></label>
                                 <input type="password" class="form-control" id="current_password" name="current_password">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="new_password" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="new_password" name="new_password" 
-                                       minlength="6">
+                                <label for="new_password" class="form-label"><?= __('New Password'); ?></label>
+                                <input type="password" class="form-control" id="new_password" name="new_password" minlength="6">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="confirm_password" class="form-label">Confirm New Password</label>
+                                <label for="confirm_password" class="form-label"><?= __('Confirm New Password'); ?></label>
                                 <input type="password" class="form-control" id="confirm_password" name="confirm_password">
                             </div>
 
                             <div class="col-12 mt-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>Save Changes
+                                    <i class="fas fa-save me-2"></i><?= __('Save Changes'); ?>
                                 </button>
                                 <a href="dashboard.php" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                                    <i class="fas fa-arrow-left me-2"></i><?= __('Back to Dashboard'); ?>
                                 </a>
                             </div>
                         </div>
@@ -178,6 +177,7 @@ include 'includes/header.php';
         </div>
     </div>
 </div>
+
 
 <?php 
 $conn->close();

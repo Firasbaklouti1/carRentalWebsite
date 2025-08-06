@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/auth.php';
-
+require_once 'includes/init.php';
 if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-md-6">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Register</h2>
+                        <h2 class="text-center mb-4"><?= __('Register'); ?></h2>
                         
                         <?php if (!empty($errors)): ?>
                             <div class="alert alert-danger">
@@ -87,43 +87,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         
                         <form method="POST" action="">
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
+                                <label for="username" class="form-label"><?= __('Username'); ?></label>
                                 <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="name" class="form-label">Full Name</label>
+                                <label for="name" class="form-label"><?= __('Full Name'); ?></label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
+                                <label for="email" class="form-label"><?= __('Email'); ?></label>
                                 <input type="email" class="form-control" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
+                                <label for="phone" class="form-label"><?= __('Phone'); ?></label>
                                 <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label"><?= __('Password'); ?></label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                <label for="confirm_password" class="form-label"><?= __('Confirm Password'); ?></label>
                                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                             </div>
                             
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Register</button>
+                                <button type="submit" class="btn btn-primary"><?= __('Register'); ?></button>
                             </div>
                         </form>
                         
                         <div class="text-center mt-3">
-                            <p>Already have an account? <a href="login.php">Login here</a></p>
-                            <p><a href="index.php">Back to Home</a></p>
+                            <p><?= __('Already have an account?'); ?> <a href="login.php"><?= __('Login here'); ?></a></p>
+                            <p><a href="index.php"><?= __('Back to Home'); ?></a></p>
                         </div>
                     </div>
                 </div>

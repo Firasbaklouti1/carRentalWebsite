@@ -2,7 +2,7 @@
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
 require_once '../includes/auth.php';
-
+require_once '../includes/init.php';
 // Ensure user is logged in as admin
 if (!is_admin_logged_in()) {
     header('Location: login.php');
@@ -113,9 +113,9 @@ $result = $conn->query($sql);
 
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">Manage Car Types</h1>
+        <h1 class="h3 mb-0"><?= __('Manage Car Types'); ?></h1>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTypeModal">
-            <i class="fas fa-plus me-2"></i>Add Car Type
+            <i class="fas fa-plus me-2"></i><?= __('Add Car Type'); ?>
         </button>
     </div>
 
@@ -145,9 +145,9 @@ $result = $conn->query($sql);
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Type Name</th>
-                            <th>Cars Using This Type</th>
-                            <th class="text-end">Actions</th>
+                            <th><?= __('Type Name'); ?></th>
+                            <th><?= __('Cars Using This Type'); ?></th>
+                            <th class="text-end"><?= __('Actions'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -165,7 +165,7 @@ $result = $conn->query($sql);
                                 ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($type['type_name']); ?></td>
-                                    <td><?php echo $count; ?> cars</td>
+                                    <td><?php echo $count; ?> <?= __('cars'); ?></td>
                                     <td class="text-end">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-primary"
@@ -189,7 +189,7 @@ $result = $conn->query($sql);
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Car Type</h5>
+                                                        <h5 class="modal-title"><?= __('Edit Car Type'); ?></h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                     </div>
                                                     <form action="" method="POST">
@@ -197,14 +197,14 @@ $result = $conn->query($sql);
                                                         <input type="hidden" name="type_id" value="<?php echo $type['type_id']; ?>">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Type Name</label>
+                                                                <label class="form-label"><?= __('Type Name'); ?></label>
                                                                 <input type="text" name="type_name" class="form-control" 
                                                                        value="<?php echo htmlspecialchars($type['type_name']); ?>" required>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('Cancel'); ?></button>
+                                                            <button type="submit" class="btn btn-primary"><?= __('Save Changes'); ?></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -217,7 +217,7 @@ $result = $conn->query($sql);
                             <tr>
                                 <td colspan="3" class="text-center py-4">
                                     <i class="fas fa-list fa-2x mb-3 text-muted d-block"></i>
-                                    <p class="mb-0 text-muted">No car types found. Add your first car type to get started!</p>
+                                    <p class="mb-0 text-muted"><?= __('No car types found. Add your first car type to get started!'); ?></p>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -233,20 +233,20 @@ $result = $conn->query($sql);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Car Type</h5>
+                <h5 class="modal-title"><?= __('Add New Car Type'); ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="" method="POST">
                 <input type="hidden" name="action" value="add_type">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Type Name</label>
+                        <label class="form-label"><?= __('Type Name'); ?></label>
                         <input type="text" name="type_name" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Type</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('Cancel'); ?></button>
+                    <button type="submit" class="btn btn-primary"><?= __('Add Type'); ?></button>
                 </div>
             </form>
         </div>

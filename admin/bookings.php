@@ -3,7 +3,7 @@ session_start();
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
-
+require_once '../includes/init.php';
 // Check if user is logged in and is admin
 if (!is_admin_logged_in()) {
     header('Location: ../login.php');
@@ -71,10 +71,10 @@ include 'includes/header.php';
 <div class="main-content">
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0">Manage Bookings</h1>
+            <h1 class="h3 mb-0"><?= __('Manage Bookings'); ?></h1>
             <div class="d-flex gap-2">
                 <button class="btn btn-outline-primary" onclick="window.print()">
-                    <i class="fas fa-print me-2"></i>Print Report
+                    <i class="fas fa-print me-2"></i><?= __('Print Report'); ?>
                 </button>
             </div>
         </div>
@@ -103,7 +103,7 @@ include 'includes/header.php';
             <div class="card-header py-3 bg-white">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h6 class="m-0 fw-bold text-primary">All Bookings</h6>
+                        <h6 class="m-0 fw-bold text-primary"><?= __('All Bookings'); ?></h6>
                     </div>
                     <div class="col-auto">
                         <div class="input-group">
@@ -120,14 +120,14 @@ include 'includes/header.php';
                     <table class="table table-hover mb-0">
                         <thead class="bg-light">
                             <tr>
-                                <th class="ps-4">Booking ID</th>
-                                <th>User</th>
-                                <th>Car</th>
-                                <th>From Date</th>
-                                <th>To Date</th>
-                                <th>Total Cost</th>
-                                <th>Status</th>
-                                <th class="text-end pe-4">Actions</th>
+                                <th class="ps-4"><?= __('Booking ID'); ?></th>
+                                <th><?= __('User'); ?></th>
+                                <th><?= __('Car'); ?></th>
+                                <th><?= __('From Date'); ?></th>
+                                <th><?= __('To Date'); ?></th>
+                                <th><?= __('Total Cost'); ?></th>
+                                <th><?= __('Status'); ?></th>
+                                <th class="text-end pe-4"><?= __('Actions'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -172,7 +172,7 @@ include 'includes/header.php';
                                             <div class="btn-group">
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                        <i class="fas fa-edit me-1"></i>Status
+                                                        <i class="fas fa-edit me-1"></i><?= __('Status'); ?>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
@@ -180,7 +180,7 @@ include 'includes/header.php';
                                                                 <input type="hidden" name="booking_id" value="<?php echo $booking['booking_id']; ?>">
                                                                 <input type="hidden" name="status" value="pending">
                                                                 <button type="submit" class="btn btn-link text-warning p-0 text-decoration-none">
-                                                                    <i class="fas fa-clock me-2"></i>Pending
+                                                                    <i class="fas fa-clock me-2"></i><?= __('Pending'); ?>
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -189,7 +189,7 @@ include 'includes/header.php';
                                                                 <input type="hidden" name="booking_id" value="<?php echo $booking['booking_id']; ?>">
                                                                 <input type="hidden" name="status" value="confirmed">
                                                                 <button type="submit" class="btn btn-link text-success p-0 text-decoration-none">
-                                                                    <i class="fas fa-check me-2"></i>Confirm
+                                                                    <i class="fas fa-check me-2"></i><?= __('Confirm'); ?>
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -198,7 +198,7 @@ include 'includes/header.php';
                                                                 <input type="hidden" name="booking_id" value="<?php echo $booking['booking_id']; ?>">
                                                                 <input type="hidden" name="status" value="cancelled">
                                                                 <button type="submit" class="btn btn-link text-danger p-0 text-decoration-none">
-                                                                    <i class="fas fa-ban me-2"></i>Cancel
+                                                                    <i class="fas fa-ban me-2"></i><?= __('Cancel'); ?>
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -207,7 +207,7 @@ include 'includes/header.php';
                                                                 <input type="hidden" name="booking_id" value="<?php echo $booking['booking_id']; ?>">
                                                                 <input type="hidden" name="status" value="completed">
                                                                 <button type="submit" class="btn btn-link text-info p-0 text-decoration-none">
-                                                                    <i class="fas fa-flag-checkered me-2"></i>Complete
+                                                                    <i class="fas fa-flag-checkered me-2"></i><?= __('Complete'); ?>
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -223,21 +223,21 @@ include 'includes/header.php';
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Delete Booking</h5>
+                                                            <h5 class="modal-title"><?= __('Delete Booking'); ?></h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                         </div>
                                                         <div class="modal-body text-start">
-                                                            <p>Are you sure you want to delete this booking?</p>
-                                                            <p class="mb-0"><strong>Booking ID:</strong> #<?php echo $booking['booking_id']; ?></p>
-                                                            <p class="mb-0"><strong>User:</strong> <?php echo htmlspecialchars($booking['user_name']); ?></p>
-                                                            <p class="mb-0"><strong>Car:</strong> <?php echo htmlspecialchars($booking['car_name']); ?></p>
+                                                            <p><?= __('Are you sure you want to delete this booking?'); ?></p>
+                                                            <p class="mb-0"><strong><?= __('Booking ID:'); ?></strong> #<?php echo $booking['booking_id']; ?></p>
+                                                            <p class="mb-0"><strong><?= __('User:'); ?></strong> <?php echo htmlspecialchars($booking['user_name']); ?></p>
+                                                            <p class="mb-0"><strong><?= __('Car:'); ?></strong> <?php echo htmlspecialchars($booking['car_name']); ?></p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('Cancel'); ?></button>
                                                             <form method="POST" class="d-inline">
                                                                 <input type="hidden" name="booking_id" value="<?php echo $booking['booking_id']; ?>">
                                                                 <input type="hidden" name="delete_booking" value="1">
-                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                                <button type="submit" class="btn btn-danger"><?= __('Delete'); ?></button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -248,7 +248,7 @@ include 'includes/header.php';
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="8" class="text-center py-4">No bookings found.</td>
+                                    <td colspan="8" class="text-center py-4"><?= __('No bookings found.'); ?></td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>

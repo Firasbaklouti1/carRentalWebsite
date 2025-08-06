@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 
 require_once 'includes/auth.php';
 require_once 'includes/config.php';
+require_once 'includes/init.php';
 
 try {
     $conn = Connect();
@@ -110,20 +111,20 @@ if (
                             <h5 class="card-title"><?php echo htmlspecialchars($car['car_name']); ?></h5>
                             <div class="car-features mb-3">
                                 <span class="car-feature"><i class="fas fa-car"></i> <?php echo htmlspecialchars($car['car_type']); ?></span>
-                                <span class="car-feature"><i class="fas fa-check-circle"></i> Available</span>
+                                <span class="car-feature"><i class="fas fa-check-circle"></i> <?= __('Available'); ?></span>
                             </div>
                             <div class="car-price mb-3">
                                 <h4 class="text-primary mb-0">
-                                    Rs. <?php echo number_format($car['price'], 2); ?> <small class="text-muted">/day</small>
+                                    Rs. <?php echo number_format($car['price'], 2); ?> <small class="text-muted"><?= __('/day'); ?></small>
                                 </h4>
                             </div>
                             <?php if (is_user_logged_in()): ?>
                                 <a href="book.php?car_id=<?php echo $car['car_id']; ?>" class="btn btn-primary w-100">
-                                    <i class="fas fa-calendar-check me-2"></i>Book Now
+                                    <i class="fas fa-calendar-check me-2"></i><?= __('Book Now'); ?>
                                 </a>
                             <?php else: ?>
                                 <a href="login.php" class="btn btn-outline-primary w-100">
-                                    <i class="fas fa-sign-in-alt me-2"></i>Login to Book
+                                    <i class="fas fa-sign-in-alt me-2"></i><?= __('Login to Book'); ?>
                                 </a>
                             <?php endif; ?>
                         </div>
@@ -164,7 +165,7 @@ if (
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome - Car Rental System</title>
+    <title><?= __('Welcome - Car Rental System'); ?></title>
     <?php include 'includes/header.php'; ?>
     <style>
         .hero-section {
@@ -208,21 +209,24 @@ if (
     </style>
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
-    <?php include 'includes/navigation.php'; ?>
+    <?php
+        
+        include 'includes/navigation.php';
+      ?>
 
     <!-- Hero Section -->
     <section class="hero-section text-white text-center position-relative">
         <div class="hero-overlay"></div>
         <div class="container py-5">
-            <h1 class="display-4 fw-bold mb-4">Find Your Perfect Ride</h1>
-            <p class="lead mb-4">Choose from our wide selection of cars for any occasion. Easy booking, great rates!</p>
+            <h1 class="display-4 fw-bold mb-4"><?= __('Find Your Perfect Ride</h1>'); ?>
+            <p class="lead mb-4"><?= __('Choose from our wide selection of cars for any occasion. Easy booking, great rates!</p>'); ?>
             <div class="d-grid gap-3 d-sm-flex justify-content-center">
                 <a href="#available-cars" class="btn btn-primary btn-lg px-4 gap-3">
-                    <i class="fas fa-car me-2"></i>Browse Cars
+                    <i class="fas fa-car me-2"></i><?= __('Browse Cars'); ?>
                 </a>
                 <?php if (!is_user_logged_in()): ?>
                     <a href="register.php" class="btn btn-outline-light btn-lg px-4">
-                        <i class="fas fa-user-plus me-2"></i>Sign Up
+                        <i class="fas fa-user-plus me-2"></i><?= __('Sign Up'); ?>
                     </a>
                 <?php endif; ?>
             </div>
@@ -231,7 +235,7 @@ if (
 
     <!-- Available Cars Section -->
     <div id="available-cars" class="container my-5">
-        <h2 class="text-center mb-4">Available Cars</h2>
+        <h2 class="text-center mb-4"><?= __('Available Cars'); ?></h2>
         <div class="filter-section">
             <form id="filterForm" class="row g-3">
                 <div class="col-md-4">
@@ -240,7 +244,7 @@ if (
                 </div>
                 <div class="col-md-3">
                     <select name="type" id="typeSelect" class="form-select">
-                        <option value="">All Types</option>
+                        <option value=""><?= __('All Types'); ?></option>
                         <?php foreach ($types_array as $type): ?>
                             <option value="<?php echo htmlspecialchars($type); ?>"
                                 <?php echo (isset($_GET['type']) && $_GET['type'] === $type) ? 'selected' : ''; ?>>
@@ -293,20 +297,20 @@ if (
                                         <h5 class="card-title"><?php echo htmlspecialchars($car['car_name']); ?></h5>
                                         <div class="car-features mb-3">
                                             <span class="car-feature"><i class="fas fa-car"></i> <?php echo htmlspecialchars($car['car_type']); ?></span>
-                                            <span class="car-feature"><i class="fas fa-check-circle"></i> Available</span>
+                                            <span class="car-feature"><i class="fas fa-check-circle"></i> <?= __('Available'); ?></span>
                                         </div>
                                         <div class="car-price mb-3">
                                             <h4 class="text-primary mb-0">
-                                                Rs. <?php echo number_format($car['price'], 2); ?> <small class="text-muted">/day</small>
+                                                Rs. <?php echo number_format($car['price'], 2); ?> <small class="text-muted"><?= __('/day'); ?></small>
                                             </h4>
                                         </div>
                                         <?php if (is_user_logged_in()): ?>
                                             <a href="book.php?car_id=<?php echo $car['car_id']; ?>" class="btn btn-primary w-100">
-                                                <i class="fas fa-calendar-check me-2"></i>Book Now
+                                                <i class="fas fa-calendar-check me-2"></i><?= __('Book Now'); ?>
                                             </a>
                                         <?php else: ?>
                                             <a href="login.php" class="btn btn-outline-primary w-100">
-                                                <i class="fas fa-sign-in-alt me-2"></i>Login to Book
+                                                <i class="fas fa-sign-in-alt me-2"></i><?= __('Login to Book'); ?>
                                             </a>
                                         <?php endif; ?>
                                     </div>
@@ -317,7 +321,7 @@ if (
                         <div class="col-12">
                             <div class="alert alert-info text-center">
                                 <i class="fas fa-car-side fa-3x mb-3"></i>
-                                <p class="mb-0">No cars available matching your criteria.</p>
+                                <p class="mb-0"><?= __('No cars available matching your criteria'); ?>.</p>
                             </div>
                         </div>
                     <?php endif; ?>

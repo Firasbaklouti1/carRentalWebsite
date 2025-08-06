@@ -2,6 +2,8 @@
 require_once 'includes/auth.php';
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
+require_once 'includes/init.php';
+
 
 // Check if user is logged in
 if (!is_user_logged_in()) {
@@ -83,7 +85,7 @@ include 'includes/header.php';
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">My Profile</h2>
+                    <h2 class="card-title text-center mb-4"><?= __('My Profile'); ?></h2>
                     
                     <?php if (!empty($success_message)): ?>
                         <div class="alert alert-success"><?php echo $success_message; ?></div>
@@ -95,48 +97,48 @@ include 'includes/header.php';
 
                     <form method="POST" action="">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="username" class="form-label"><?= __('Username'); ?></label>
                             <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" readonly>
-                            <small class="text-muted">Username cannot be changed</small>
+                            <small class="text-muted"><?= __('Username cannot be changed'); ?></small>
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label"><?= __('Email'); ?></label>
                             <input type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly>
-                            <small class="text-muted">Email cannot be changed</small>
+                            <small class="text-muted"><?= __('Email cannot be changed'); ?></small>
                         </div>
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Full Name</label>
+                            <label for="name" class="form-label"><?= __('Full Name'); ?></label>
                             <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
+                            <label for="phone" class="form-label"><?= __('Phone Number'); ?></label>
                             <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>">
                         </div>
 
                         <hr class="my-4">
-                        <h4 class="mb-3">Change Password</h4>
-                        <p class="text-muted small">Leave password fields empty if you don't want to change it</p>
+                        <h4 class="mb-3"><?= __('Change Password'); ?></h4>
+                        <p class="text-muted small"><?= __('Leave password fields empty if you don t want to change it'); ?></p>
 
                         <div class="mb-3">
-                            <label for="current_password" class="form-label">Current Password</label>
+                            <label for="current_password" class="form-label"><?= __('Current Password'); ?></label>
                             <input type="password" class="form-control" id="current_password" name="current_password">
                         </div>
 
                         <div class="mb-3">
-                            <label for="new_password" class="form-label">New Password</label>
+                            <label for="new_password" class="form-label"><?= __('New Password'); ?></label>
                             <input type="password" class="form-control" id="new_password" name="new_password">
                         </div>
 
                         <div class="mb-3">
-                            <label for="confirm_password" class="form-label">Confirm New Password</label>
+                            <label for="confirm_password" class="form-label"><?= __('Confirm New Password'); ?></label>
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password">
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <button type="submit" class="btn btn-primary"><?= __('Update Profile'); ?></button>
                         </div>
                     </form>
                 </div>
