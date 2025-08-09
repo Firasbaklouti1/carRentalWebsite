@@ -196,6 +196,17 @@ return [
     'Car Rental Admin' => 'Car Rental Admin',
     'Welcome,' => 'Welcome,',
     'Administrator' => 'Administrator',
+    'User ID' => 'User ID',
+    'Name' => 'Name',
+    'Role' => 'Role',
+    'Email' => 'Email',
+    'Phone' => 'Phone',
+    'Bookings' => 'Bookings',
+    'Joined Date' => 'Joined Date',
+    'Actions' => 'Actions',
+    'Create Guest User' => 'Create Guest User',
+    'Delete User' => 'Delete User',
+    'View Documents' =>'View Documents'
 
 
 

@@ -222,6 +222,17 @@ return [
     'Car Rental Admin' => 'Administration de location de voitures',
     'Welcome,' => 'Bienvenue,',
     'Administrator' => 'Administrateur',
+    'User ID' => 'ID Utilisateur',
+    'Name' => 'Nom',
+    'Role' => 'Rôle',
+    'Email' => 'Email',
+    'Phone' => 'Téléphone',
+    'Bookings' => 'Réservations',
+    'Joined Date' => 'Date d\'inscription',
+    'Actions' => 'Actions',
+    'Create Guest User' => 'Créer un utilisateur invité',
+    'Delete User' => 'Supprimer l\'utilisateur',
+    'View Documents' => 'voir les documents'
 
 
 

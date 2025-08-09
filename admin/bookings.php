@@ -4,6 +4,7 @@ require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
 require_once '../includes/init.php';
+
 // Check if user is logged in and is admin
 if (!is_admin_logged_in()) {
     header('Location: ../login.php');
@@ -34,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $_SESSION['error'] = "Failed to update booking status.";
             }
-            
             $stmt->close();
+
         } elseif (isset($_POST['delete_booking'])) {
             // Delete booking
             $booking_id = $_POST['booking_id'];
@@ -49,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $_SESSION['error'] = "Failed to delete booking.";
             }
-            
             $stmt->close();
         }
         header('Location: bookings.php');
@@ -213,6 +213,12 @@ include 'includes/header.php';
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                <!-- View Documents -->
+                                                <a href="booking_documents.php?booking_id=<?php echo $booking['booking_id']; ?>" 
+                                                   class="btn btn-sm btn-outline-secondary">
+                                                    <i class="fas fa-folder-open"></i> <?= __('Documents'); ?>
+                                                </a>
+                                                <!-- Delete Booking -->
                                                 <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteBookingModal<?php echo $booking['booking_id']; ?>">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
@@ -261,13 +267,11 @@ include 'includes/header.php';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Search functionality
     const searchInput = document.getElementById('searchBookings');
     if (searchInput) {
         searchInput.addEventListener('keyup', function() {
             const searchValue = this.value.toLowerCase();
             const tableRows = document.querySelectorAll('tbody tr');
-            
             tableRows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(searchValue) ? '' : 'none';
