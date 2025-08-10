@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteBase /carrentalphp-main/
+
+# Redirect /index or /index.php (with or without extension) to root /
+RewriteCond %{REQUEST_URI} ^/carrentalphp-main/index(\.php)?$ [NC]
+RewriteRule ^index(\.php)?$ /carrentalphp-main/ [R=301,L]
+
+# 1) Redirect direct browser requests for .php -> extensionless (keep query string)
+#    e.g. /carrentalphp-main/index.php?x=1  ->  /carrentalphp-main/index?x=1
+RewriteCond %{THE_REQUEST} \s/([^\s]+?)\.php[?\s] [NC]
+RewriteRule ^ /%1 [R=301,L,QSA]
+
+# 2) Internally rewrite extensionless URL to the .php file
+#    but don't touch existing files, folders or requests with a dot/extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.php [L,QSA]
+
+
+

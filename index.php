@@ -334,13 +334,13 @@ if (
             data.set('page', page);
             const params = new URLSearchParams(data).toString();
 
-            fetch('index.php?' + params, {
+            fetch('index?' + params, {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
             .then(response => response.text())
             .then(html => {
                 results.innerHTML = html;
-                history.replaceState(null, '', 'index.php?' + params);
+                history.replaceState(null, '', 'index?' + params);
 
                 results.querySelectorAll('.pagination a.page-link').forEach(link => {
                     link.addEventListener('click', e => {

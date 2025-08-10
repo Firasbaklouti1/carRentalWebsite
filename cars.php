@@ -26,7 +26,6 @@ $result = $conn->query($sql);
                 <p class="text-muted"><?= __('Choose from our wide range of vehicles for any occasion.'); ?></p>
             </div>
 
-             Filters/Search 
             <div class="filter-bar">
                 <div class="row g-3 align-items-end">
                     <div class="col-md-5">
@@ -49,15 +48,13 @@ $result = $conn->query($sql);
                     <div class="col-md-3">
                         <label class="form-label"><?= __('Price Range'); ?></label>
                         <div class="input-group">
-                            <span class="input-group-text">Rs</span>
+                            <span class="input-group-text">DT</span>
                             <input type="number" class="form-control" id="minPrice" placeholder="<?= __('Min'); ?>" aria-label="<?= __('Minimum price'); ?>">
                             <input type="number" class="form-control" id="maxPrice" placeholder="<?= __('Max'); ?>" aria-label="<?= __('Maximum price'); ?>">
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-primary w-100 btn-elevated" id="applyFilters">
-                            <i class="fas fa-filter me-1" aria-hidden="true"></i><span class="d-none d-md-inline"><?= __('Apply'); ?></span>
-                        </button>
+                        
                     </div>
                 </div>
             </div>
@@ -134,8 +131,9 @@ $result = $conn->query($sql);
             function filterCars() {
                 const searchTerm = searchInput.value.toLowerCase();
                 const selectedType = carTypeSelect.value;
-                const minPrice = parseFloat(minPriceInput.value) || 0;
-                const maxPrice = parseFloat(maxPriceInput.value) || Infinity;
+                const minPrice = parseFloat(minPriceInput.value)/100 || 0;
+                const maxPrice = parseFloat(maxPriceInput.value)/100 || Infinity;
+                
 
                 carCards.forEach(card => {
                     const title = card.querySelector('.card-title').textContent.toLowerCase();
