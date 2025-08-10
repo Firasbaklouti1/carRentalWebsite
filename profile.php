@@ -140,116 +140,127 @@ $stmt->close();
 $page_title = "My Profile";
 include 'includes/header.php';
 ?>
-<?php
-        
-        include 'includes/navigation.php';
-      ?>
-<div class="container mt-5 pt-5">
+<?php include 'includes/navigation.php'; ?>
+<main class="container section">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <?php if (!empty($success_message)): ?>
-                <div class="alert alert-success"><?= $success_message; ?></div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $success_message; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?= __('Close'); ?>"></button>
+                </div>
             <?php endif; ?>
             <?php if (!empty($error_message)): ?>
-                <div class="alert alert-danger"><?= $error_message; ?></div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $error_message; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?= __('Close'); ?>"></button>
+                </div>
             <?php endif; ?>
 
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <h2 class="card-title text-center mb-4"><?= __('My Profile'); ?></h2>
-                    <form method="POST">
+            <div class="card modern-card mb-4">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="h4 mb-4 text-center"><?= __('My Profile'); ?></h2>
+                    <form method="POST" class="row g-3">
                         <input type="hidden" name="profile_action" value="update_profile">
-                        <div class="mb-3">
+                        <div class="col-md-6">
                             <label class="form-label"><?= __('Username'); ?></label>
-                            <input type="text" class="form-control" value="<?= htmlspecialchars($user['username']); ?>" readonly>
+                            <input type="text" class="form-control" value="<?= htmlspecialchars($user['username']); ?>" readonly aria-readonly="true">
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-6">
                             <label class="form-label"><?= __('Email'); ?></label>
-                            <input type="email" class="form-control" value="<?= htmlspecialchars($user['email']); ?>" readonly>
+                            <input type="email" class="form-control" value="<?= htmlspecialchars($user['email']); ?>" readonly aria-readonly="true">
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-6">
                             <label class="form-label"><?= __('Full Name'); ?></label>
                             <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($user['name']); ?>" required>
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-6">
                             <label class="form-label"><?= __('Phone Number'); ?></label>
                             <input type="text" name="phone" class="form-control" value="<?= htmlspecialchars($user['phone']); ?>">
                         </div>
-                        <hr>
-                        <h4><?= __('Change Password'); ?></h4>
-                        <p class="text-muted small"><?= __('Leave password fields empty if you do not want to change it'); ?></p>
-                        <div class="mb-3">
+                        <div class="col-12"><hr></div>
+                        <div class="col-12">
+                            <h3 class="h6 mb-2"><?= __('Change Password'); ?></h3>
+                            <p class="text-muted small mb-3"><?= __('Leave password fields empty if you do not want to change it'); ?></p>
+                        </div>
+                        <div class="col-md-4">
                             <label class="form-label"><?= __('Current Password'); ?></label>
-                            <input type="password" name="current_password" class="form-control">
+                            <input type="password" name="current_password" class="form-control" autocomplete="current-password">
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-4">
                             <label class="form-label"><?= __('New Password'); ?></label>
-                            <input type="password" name="new_password" class="form-control">
+                            <input type="password" name="new_password" class="form-control" autocomplete="new-password">
                         </div>
-                        <div class="mb-3">
+                        <div class="col-md-4">
                             <label class="form-label"><?= __('Confirm New Password'); ?></label>
-                            <input type="password" name="confirm_password" class="form-control">
+                            <input type="password" name="confirm_password" class="form-control" autocomplete="new-password">
                         </div>
-                        <button type="submit" class="btn btn-primary"><?= __('Update Profile'); ?></button>
+                        <div class="col-12 d-grid">
+                            <button type="submit" class="btn btn-primary btn-elevated"><?= __('Update Profile'); ?></button>
+                        </div>
                     </form>
                 </div>
             </div>
 
-            <!-- User Documents Section -->
-            <div class="card shadow">
-                <div class="card-header"><h5><?= __('My Documents'); ?></h5></div>
+             User Documents Section 
+            <div class="card modern-card">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><?= __('My Documents'); ?></h5>
+                </div>
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" class="mb-4">
+                    <form method="POST" enctype="multipart/form-data" class="row g-3 mb-4">
                         <input type="hidden" name="doc_action" value="add_document">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <input type="text" name="document_name" class="form-control" placeholder="<?= __('Document Name'); ?>" required>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="file" name="document_file" class="form-control" required>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-success w-100"><?= __('Upload'); ?></button>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><?= __('Document Name'); ?></label>
+                            <input type="text" name="document_name" class="form-control" placeholder="<?= __('Document Name'); ?>" required>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label"><?= __('File'); ?></label>
+                            <input type="file" name="document_file" class="form-control" required>
+                        </div>
+                        <div class="col-md-3 d-grid align-items-end">
+                            <button type="submit" class="btn btn-success"><?= __('Upload'); ?></button>
                         </div>
                     </form>
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><?= __('Name'); ?></th>
-                                <th><?= __('File'); ?></th>
-                                <th><?= __('Uploaded'); ?></th>
-                                <th><?= __('Action'); ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php if ($user_docs->num_rows > 0): ?>
-                            <?php while ($doc = $user_docs->fetch_assoc()): ?>
+                    <div class="table-responsive">
+                        <table class="table table-modern align-middle">
+                            <thead>
                                 <tr>
-                                    <td><?= ucfirst(htmlspecialchars($doc['document_name'])); ?></td>
-                                    <td><a href="<?= htmlspecialchars($doc['file_path']); ?>" target="_blank"><?= __('View'); ?></a></td>
-                                    <td><?= format_date($doc['uploaded_at']); ?></td>
-                                    <td>
-                                        <form method="POST" onsubmit="return confirm('<?= __('Delete this document?'); ?>');">
-                                            <input type="hidden" name="doc_action" value="delete_document">
-                                            <input type="hidden" name="document_id" value="<?= $doc['document_id']; ?>">
-                                            <button class="btn btn-sm btn-danger"><?= __('Delete'); ?></button>
-                                        </form>
-                                    </td>
+                                    <th><?= __('Name'); ?></th>
+                                    <th><?= __('File'); ?></th>
+                                    <th><?= __('Uploaded'); ?></th>
+                                    <th class="text-end"><?= __('Action'); ?></th>
                                 </tr>
-                            <?php endwhile; ?>
-                        <?php else: ?>
-                            <tr><td colspan="4" class="text-center"><?= __('No documents found'); ?></td></tr>
-                        <?php endif; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <?php if ($user_docs->num_rows > 0): ?>
+                                <?php while ($doc = $user_docs->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?= ucfirst(htmlspecialchars($doc['document_name'])); ?></td>
+                                        <td><a href="<?= htmlspecialchars($doc['file_path']); ?>" target="_blank" rel="noopener"><?= __('View'); ?></a></td>
+                                        <td><?= format_date($doc['uploaded_at']); ?></td>
+                                        <td class="text-end">
+                                            <form method="POST" onsubmit="return confirm('<?= __('Delete this document?'); ?>');" class="d-inline">
+                                                <input type="hidden" name="doc_action" value="delete_document">
+                                                <input type="hidden" name="document_id" value="<?= $doc['document_id']; ?>">
+                                                <button class="btn btn-sm btn-danger"><?= __('Delete'); ?></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr><td colspan="4" class="text-center text-muted"><?= __('No documents found'); ?></td></tr>
+                            <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
-</div>
+</main>
 <?php
 $conn->close();
 include 'includes/footer.php';

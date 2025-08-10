@@ -149,13 +149,13 @@ include 'includes/header.php';
                                         </td>
                                         <td><?php echo date('M d, Y', strtotime($booking['pickup_date'])); ?></td>
                                         <td><?php echo date('M d, Y', strtotime($booking['return_date'])); ?></td>
-                                        <td>Rs. <?php 
+                                        <td>DT. <?php 
                                             $total = calculate_rental_cost(
                                                 $booking['price'], 
                                                 $booking['pickup_date'], 
                                                 $booking['return_date']
                                             );
-                                            echo number_format($total, 2); 
+                                            echo number_format($total, 0,0); 
                                         ?></td>
                                         <td>
                                             <span class="badge <?php 

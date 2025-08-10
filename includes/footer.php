@@ -23,9 +23,9 @@
             <div class="col-md-4">
                 <h5><?= __('Contact Info'); ?></h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i><?= __('Sorakhutte, Kathmandu'); ?></li>
-                    <li class="mb-2"><i class="fas fa-phone me-2"></i>+977 9870564820</li>
-                    <li class="mb-2"><i class="fas fa-envelope me-2"></i>Kusum@carrentalsystem.com</li>
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i><?= __('Tunisie, Bizerte'); ?></li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i>+216 12345678</li>
+                    <li class="mb-2"><i class="fas fa-envelope me-2"></i>lovingcar@gmail.com</li>
                 </ul>
                 <div class="social-links">
                     <a href="https://www.facebook.com/profile.php?id=61578098498232&locale=fr_FR" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
@@ -40,12 +40,7 @@
             <div class="col-md-6 text-center text-md-start">
                 <p class="mb-0">&copy; <?= date('Y'); ?> <?= __('Car Rental System'); ?>. <?= __('All rights reserved.'); ?></p>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <p class="mb-0">
-                    <a href="#" class="text-light text-decoration-none me-3"><?= __('Privacy Policy'); ?></a>
-                    <a href="#" class="text-light text-decoration-none"><?= __('Terms of Service'); ?></a>
-                </p>
-            </div>
+            
         </div>
     </div>
 </footer>

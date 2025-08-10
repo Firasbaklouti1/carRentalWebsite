@@ -621,7 +621,7 @@ include 'includes/header.php';
                             <h5 class="card-title"><?= htmlspecialchars($car['car_name']); ?></h5>
                             <p class="card-text">
                                 <small class="text-muted"><?= htmlspecialchars($car['car_type']); ?> • <?= htmlspecialchars($car['fuel_type']); ?></small><br>
-                                <strong class="text-primary"><?= __('Rs.'); ?> <?= number_format($car['price'], 2); ?>/<?= __('day'); ?></strong>
+                                <strong class="text-primary"><?= __('Rs.'); ?> <?= number_format($car['price'], 0,0); ?>/<?= __('day'); ?></strong>
                             </p>
                         </div>
                         
@@ -876,7 +876,7 @@ include 'includes/header.php';
                                         <tr>
                                             <td><?= $maintenance['maintenance_date']; ?></td>
                                             <td><?= $maintenance['description']; ?></td>
-                                            <td>Rs. <?= number_format($maintenance['cost'], 2); ?></td>
+                                            <td>DT. <?= number_format($maintenance['cost'], 0,0); ?></td>
                                             <td>
                                                 <?php if ($maintenance['invoice_path']): ?>
                                                     <a href="../<?= $maintenance['invoice_path']; ?>" target="_blank"><?= __('View Invoice'); ?></a>

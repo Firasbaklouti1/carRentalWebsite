@@ -225,7 +225,7 @@ include 'includes/header.php';
                                     echo '<tr>';
                                     echo '<td>'.htmlspecialchars($booking['customer_name']).'</td>';
                                     echo '<td>'.htmlspecialchars($booking['car_name']).'</td>';
-                                    echo '<td>Rs. '.number_format($booking['total_amount'] ?? 0, 2).'</td>';
+                                    echo '<td>DT. '.number_format($booking['total_amount'] ?? 0, 0).'</td>';
                                     echo '<td><span class="badge bg-'.$status_class.'">'.__($status).'</span></td>';
                                     echo '</tr>';
                                 }
@@ -294,16 +294,16 @@ include 'includes/header.php';
                                 echo '</thead>';
                                 echo '<tbody>';
                                 while ($car = $recent_cars->fetch_assoc()) {
-                                    $status = $car['status'] ?? 'unavailable';
+                                    $status = ($car['car_availability'] ?? 'no') === 'yes' ? 'available' : 'unavailable';
                                     $status_class = $status === 'available' ? 'success' : 'warning';
                                     
                                     echo '<tr>';
-                                    echo '<td>'.htmlspecialchars($car['car_name']).'</td>';
-                                    echo '<td>'.htmlspecialchars($car['car_type']).'</td>';
-                                    echo '<td>Rs. '.number_format($car['price_per_day'] ?? 0, 2).'</td>';
-                                    echo '<td><span class="badge bg-'.$status_class.'">'.__($status).'</span></td>';
+                                    echo '<td>' . htmlspecialchars($car['car_name']) . '</td>';
+                                    echo '<td>' . htmlspecialchars($car['car_type']) . '</td>';
+                                    echo '<td>DT. ' . number_format($car[$price_field] ?? 0, 0) . '</td>';
+                                    echo '<td><span class="badge bg-' . $status_class . '">' . __($status) . '</span></td>';
                                     echo '</tr>';
-                                }
+                                }                                
                                 echo '</tbody>';
                                 echo '</table>';
                                 echo '</div>';

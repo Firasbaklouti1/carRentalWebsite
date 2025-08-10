@@ -88,6 +88,7 @@ $result = $conn->query($sql);
                             <th>Date</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Phone</th> <!-- Added phone header -->
                             <th>Subject</th>
                             <th>Status</th>
                             <th class="text-end">Actions</th>
@@ -100,6 +101,7 @@ $result = $conn->query($sql);
                                     <td><?php echo date('Y-m-d H:i', strtotime($enquiry['created_at'])); ?></td>
                                     <td><?php echo htmlspecialchars($enquiry['name']); ?></td>
                                     <td><?php echo htmlspecialchars($enquiry['email']); ?></td>
+                                    <td><?php echo htmlspecialchars($enquiry['phone']); ?></td> <!-- Show phone -->
                                     <td><?php echo htmlspecialchars($enquiry['subject']); ?></td>
                                     <td>
                                         <span class="badge bg-<?php echo ($enquiry['status'] ?? 'new') === 'read' ? 'success' : 'warning'; ?>">
@@ -171,6 +173,7 @@ $result = $conn->query($sql);
                                                             <strong class="d-block mb-2">From:</strong>
                                                             <p class="mb-0 fs-5"><?php echo htmlspecialchars($enquiry['name']); ?></p>
                                                             <p class="mb-0 text-muted"><?php echo htmlspecialchars($enquiry['email']); ?></p>
+                                                            <p class="mb-0 text-muted"><strong>Phone:</strong> <?php echo htmlspecialchars($enquiry['phone']); ?></p> <!-- Show phone -->
                                                         </div>
                                                         <div class="mb-4">
                                                             <strong class="d-block mb-2">Subject:</strong>
@@ -207,7 +210,7 @@ $result = $conn->query($sql);
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center py-4">
+                                <td colspan="7" class="text-center py-4">
                                     <i class="fas fa-inbox fa-2x mb-3 text-muted d-block"></i>
                                     <p class="mb-0 text-muted">No enquiries found</p>
                                 </td>

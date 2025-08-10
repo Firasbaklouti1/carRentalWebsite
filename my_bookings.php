@@ -32,11 +32,15 @@ $bookings = $stmt->get_result();
     <title><?= __('My Bookings - Car Rental System'); ?></title>
     <?php include 'includes/header.php'; ?>
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
     <?php include 'includes/navigation.php'; ?>
 
-    <div class="container py-5">
-        <h2 class="mb-4"><?= __('My Bookings'); ?></h2>
+    <main class="container section">
+        <div class="section-header text-start">
+            <h1 class="section-title mb-2">
+                <i class="fas fa-clipboard-list text-primary me-2" aria-hidden="true"></i><?= __('My Bookings'); ?>
+            </h1>
+        </div>
         
         <?php if (isset($_SESSION['success'])): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -44,7 +48,7 @@ $bookings = $stmt->get_result();
                 echo $_SESSION['success'];
                 unset($_SESSION['success']);
                 ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?= __('Close'); ?>"></button>
             </div>
         <?php endif; ?>
 
@@ -52,56 +56,55 @@ $bookings = $stmt->get_result();
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php while($booking = $bookings->fetch_assoc()): ?>
                     <div class="col">
-                        <div class="card h-100">
-                            <div class="row g-0">
+                        <div class="card modern-card h-100">
+                            <div class="row g-0 h-100">
                                 <div class="col-md-4">
                                     <img src="<?php echo htmlspecialchars($booking['car_image']); ?>" 
-                                         class="img-fluid rounded-start h-100" 
+                                         class="img-fluid rounded-start h-100 w-100" 
                                          alt="<?php echo htmlspecialchars($booking['car_name']); ?>"
                                          style="object-fit: cover;">
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo htmlspecialchars($booking['car_name']); ?></h5>
-                                        <p class="card-text">
-                                            <small class="text-muted">
-                                                <?= __('Type'); ?>: <?php echo htmlspecialchars($booking['car_type']); ?> | 
-                                                <?= __('Price/Day: Rs.'); ?> <?php echo number_format($booking['price'], 2); ?>
-                                            </small>
-                                        </p>
-                                        
-                                        <div class="mb-2">
+                                    <div class="card-body h-100 d-flex flex-column">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <h5 class="card-title mb-1"><?php echo htmlspecialchars($booking['car_name']); ?></h5>
+                                                <p class="text-muted small mb-2">
+                                                    <?= __('Type'); ?>: <?php echo htmlspecialchars($booking['car_type']); ?> • 
+                                                    <?= __('Price/Day: Rs.'); ?> <?php echo number_format($booking['price'], 0,0); ?>
+                                                </p>
+                                            </div>
+                                            <span class="badge <?php 
+                                                echo $booking['status'] === 'confirmed' ? 'bg-success' : 
+                                                    ($booking['status'] === 'pending' ? 'bg-warning' : 'bg-danger'); 
+                                                ?>">
+                                                <?php echo ucfirst($booking['status']); ?>
+                                            </span>
+                                        </div>
+
+                                        <div class="mb-2 small">
                                             <strong><?= __('Pickup:'); ?></strong> <?php echo date('M d, Y', strtotime($booking['pickup_date'])); ?><br>
                                             <strong><?= __('Return:'); ?></strong> <?php echo date('M d, Y', strtotime($booking['return_date'])); ?><br>
                                             <strong><?= __('Location:'); ?></strong> <?php echo htmlspecialchars($booking['pickup_location']); ?>
                                         </div>
                                         
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <strong><?= __('Total:'); ?></strong> 
+                                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                                            <div class="fw-semibold">
+                                                <?= __('Total:'); ?> 
                                                 <span class="text-primary">
-                                                    $<?php echo number_format($booking['total_amount'], 2); ?>
+                                                    DT<?php echo number_format($booking['total_amount'], 0,0); ?>
                                                 </span>
                                             </div>
-                                            <span class="badge bg-<?php 
-                                                echo $booking['status'] === 'confirmed' ? 'success' : 
-                                                    ($booking['status'] === 'pending' ? 'warning' : 'danger'); 
-                                                ?>">
-                                                <?php echo ucfirst($booking['status']); ?>
-                                            </span>
-                                        </div>
-                                        
-                                        <?php if ($booking['status'] === 'pending'): ?>
-                                            <div class="mt-3">
+                                            <?php if ($booking['status'] === 'pending'): ?>
                                                 <form action="cancel_booking.php" method="POST" 
-                                                      onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                                      onsubmit="return confirm('<?= __('Are you sure you want to cancel this booking?'); ?>');">
                                                     <input type="hidden" name="booking_id" value="<?php echo $booking['booking_id']; ?>">
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-times me-1"></i><?= __('Cancel Booking'); ?>
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-times me-1" aria-hidden="true"></i><?= __('Cancel'); ?>
                                                     </button>
                                                 </form>
-                                            </div>
-                                        <?php endif; ?>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,15 +114,15 @@ $bookings = $stmt->get_result();
             </div>
         <?php else: ?>
             <div class="text-center py-5">
-                <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
-                <h4><?= __('No Bookings Found'); ?></h4>
+                <i class="fas fa-calendar-times fa-4x text-muted mb-3" aria-hidden="true"></i>
+                <h4 class="mb-2"><?= __('No Bookings Found'); ?></h4>
                 <p class="text-muted"><?= __('You haven t made any car bookings yet.'); ?></p>
-                <a href="cars.php" class="btn btn-primary">
-                    <i class="fas fa-car me-2"></i><?= __('Browse Cars'); ?>
+                <a href="cars.php" class="btn btn-primary btn-elevated">
+                    <i class="fas fa-car me-2" aria-hidden="true"></i><?= __('Browse Cars'); ?>
                 </a>
             </div>
         <?php endif; ?>
-    </div>
+    </main>
 
     <?php include 'includes/footer.php'; ?>
 </body>

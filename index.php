@@ -103,23 +103,21 @@ if (
             while ($car = $available_cars->fetch_assoc()) {
                 ?>
                 <div class="col">
-                    <div class="card car-card h-100">
+                    <div class="card car-card modern-card h-100">
                         <img src="<?php echo !empty($car['car_image']) ? $car['car_image'] : 'assets/img/cars/default.jpg'; ?>" 
-                             class="card-img-top" style="height: 200px; object-fit: cover;"
+                             class="card-img-top"
                              alt="<?php echo htmlspecialchars($car['car_name']); ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo htmlspecialchars($car['car_name']); ?></h5>
-                            <div class="car-features mb-3">
-                                <span class="car-feature"><i class="fas fa-car"></i> <?php echo htmlspecialchars($car['car_type']); ?></span>
-                                <span class="car-feature"><i class="fas fa-check-circle"></i> <?= __('Available'); ?></span>
+                            <div class="car-meta mb-3">
+                                <span class="badge bg-primary"><i class="fas fa-car me-1"></i> <?php echo htmlspecialchars($car['car_type']); ?></span>
+                                <span class="badge-soft success"><?= __('Available'); ?></span>
                             </div>
-                            <div class="car-price mb-3">
-                                <h4 class="text-primary mb-0">
-                                    Rs. <?php echo number_format($car['price'], 2); ?> <small class="text-muted"><?= __('/day'); ?></small>
-                                </h4>
+                            <div class="car-price h5 mb-3">
+                                DT. <?php echo number_format($car['price'], 0,0); ?> <small class="text-muted"><?= __('/day'); ?></small>
                             </div>
                             <?php if (is_user_logged_in()): ?>
-                                <a href="book.php?car_id=<?php echo $car['car_id']; ?>" class="btn btn-primary w-100">
+                                <a href="book.php?car_id=<?php echo $car['car_id']; ?>" class="btn btn-primary w-100 btn-elevated">
                                     <i class="fas fa-calendar-check me-2"></i><?= __('Book Now'); ?>
                                 </a>
                             <?php else: ?>
@@ -133,9 +131,9 @@ if (
                 <?php
             }
         } else {
-            echo '<div class="col-12"><div class="alert alert-info text-center">
+            echo '<div class="col-12"><div class="alert alert-info text-center modern-card">
                     <i class="fas fa-car-side fa-3x mb-3"></i>
-                    <p class="mb-0">No cars available matching your criteria.</p>
+                    <p class="mb-0">'.__('No cars available matching your criteria').'.</p>
                   </div></div>';
         }
         echo '</div>';
@@ -167,83 +165,43 @@ if (
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= __('Welcome - Car Rental System'); ?></title>
     <?php include 'includes/header.php'; ?>
-    <style>
-        .hero-section {
-            background: url('assets/img/nepal.jpg') no-repeat center center;
-            background-size: cover;
-            padding: 120px 0 80px;
-            position: relative;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-        }
-        .hero-overlay {
-            background: rgba(0,0,0,0.6);
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 1;
-        }
-        .car-card {
-            transition: transform 0.3s ease;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-        }
-        .car-card:hover {
-            transform: translateY(-5px);
-        }
-        .car-features {
-            display: flex;
-            gap: 1rem;
-            color: #666;
-        }
-        .car-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .filter-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-    </style>
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
-    <?php
-        
-        include 'includes/navigation.php';
-      ?>
+    <?php include 'includes/navigation.php'; ?>
 
-    <!-- Hero Section -->
-    <section class="hero-section text-white text-center position-relative">
-        <div class="hero-overlay"></div>
-        <div class="container py-5">
-            <h1 class="display-4 fw-bold mb-4"><?= __('Find Your Perfect Ride</h1>'); ?>
-            <p class="lead mb-4"><?= __('Choose from our wide selection of cars for any occasion. Easy booking, great rates!</p>'); ?>
-            <div class="d-grid gap-3 d-sm-flex justify-content-center">
-                <a href="#available-cars" class="btn btn-primary btn-lg px-4 gap-3">
-                    <i class="fas fa-car me-2"></i><?= __('Browse Cars'); ?>
+    <section class="hero-modern">
+        <div class="hero-content container">
+            <span class="hero-kicker"><?= __('Premium car rentals, made simple'); ?></span>
+            <h1 class="display-5 fw-bold mb-3"><?= __('Find Your Perfect Ride'); ?></h1>
+            <p class="lead mb-4"><?= __('Choose from our wide selection of cars for any occasion. Easy booking, great rates!'); ?></p>
+            <div class="hero-actions d-grid gap-2 d-sm-flex justify-content-center">
+                <a href="#available-cars" class="btn btn-primary btn-lg btn-elevated">
+                    <i class="fas fa-car me-2" aria-hidden="true"></i><?= __('Browse Cars'); ?>
                 </a>
                 <?php if (!is_user_logged_in()): ?>
-                    <a href="register.php" class="btn btn-outline-light btn-lg px-4">
-                        <i class="fas fa-user-plus me-2"></i><?= __('Sign Up'); ?>
+                    <a href="register.php" class="btn btn-soft btn-lg">
+                        <i class="fas fa-user-plus me-2" aria-hidden="true"></i><?= __('Sign Up'); ?>
                     </a>
                 <?php endif; ?>
             </div>
         </div>
     </section>
 
-    <!-- Available Cars Section -->
-    <div id="available-cars" class="container my-5">
-        <h2 class="text-center mb-4"><?= __('Available Cars'); ?></h2>
-        <div class="filter-section">
+    <div id="available-cars" class="container section">
+        <div class="section-header">
+            <h2 class="section-title"><?= __('Available Cars'); ?></h2>
+        </div>
+
+        <div class="filter-bar mb-4">
             <form id="filterForm" class="row g-3">
                 <div class="col-md-4">
-                    <input type="text" name="search" id="searchInput" class="form-control" placeholder="Search cars..."
-                           value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" autocomplete="off">
+                    <label for="searchInput" class="form-label"><?= __('Search'); ?></label>
+                    <input type="text" name="search" id="searchInput" class="form-control" placeholder="<?= __('Search cars...'); ?>"
+                           value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" autocomplete="off" aria-label="<?= __('Search cars'); ?>">
                 </div>
                 <div class="col-md-3">
-                    <select name="type" id="typeSelect" class="form-select">
+                    <label for="typeSelect" class="form-label"><?= __('Type'); ?></label>
+                    <select name="type" id="typeSelect" class="form-select" aria-label="<?= __('Filter by type'); ?>">
                         <option value=""><?= __('All Types'); ?></option>
                         <?php foreach ($types_array as $type): ?>
                             <option value="<?php echo htmlspecialchars($type); ?>"
@@ -254,26 +212,27 @@ if (
                     </select>
                 </div>
                 <div class="col-md-4">
+                    <label class="form-label"><?= __('Price Range'); ?></label>
                     <div class="row g-2">
                         <div class="col-6">
                             <input type="number" name="min_price" id="minPriceInput" class="form-control"
-                                   placeholder="Min Price"
+                                   placeholder="<?= __('Min Price'); ?>"
                                    min="<?php echo floor($price_range['min_price']); ?>"
                                    max="<?php echo ceil($price_range['max_price']); ?>"
-                                   value="<?php echo htmlspecialchars($_GET['min_price'] ?? ''); ?>" autocomplete="off">
+                                   value="<?php echo htmlspecialchars($_GET['min_price'] ?? ''); ?>" autocomplete="off" aria-label="<?= __('Minimum price'); ?>">
                         </div>
                         <div class="col-6">
                             <input type="number" name="max_price" id="maxPriceInput" class="form-control"
-                                   placeholder="Max Price"
+                                   placeholder="<?= __('Max Price'); ?>"
                                    min="<?php echo floor($price_range['min_price']); ?>"
                                    max="<?php echo ceil($price_range['max_price']); ?>"
-                                   value="<?php echo htmlspecialchars($_GET['max_price'] ?? ''); ?>" autocomplete="off">
+                                   value="<?php echo htmlspecialchars($_GET['max_price'] ?? ''); ?>" autocomplete="off" aria-label="<?= __('Maximum price'); ?>">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1 d-flex align-items-center">
-                    <button type="button" id="resetFilters" class="btn btn-secondary w-100" title="Reset Filters">
-                        <i class="fas fa-redo"></i>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="button" id="resetFilters" class="btn btn-outline-secondary w-100" title="<?= __('Reset Filters'); ?>" aria-label="<?= __('Reset Filters'); ?>">
+                        <i class="fas fa-redo" aria-hidden="true"></i>
                     </button>
                 </div>
             </form>
@@ -281,7 +240,7 @@ if (
 
         <div id="results">
             <?php if (isset($error_message)): ?>
-                <div class="alert alert-danger text-center">
+                <div class="alert alert-danger text-center modern-card">
                     <?php echo htmlspecialchars($error_message); ?>
                 </div>
             <?php else: ?>
@@ -289,28 +248,26 @@ if (
                     <?php if ($available_cars && $available_cars->num_rows > 0): ?>
                         <?php while ($car = $available_cars->fetch_assoc()): ?>
                             <div class="col">
-                                <div class="card car-card h-100">
+                                <div class="card car-card modern-card h-100">
                                     <img src="<?php echo !empty($car['car_image']) ? $car['car_image'] : 'assets/img/cars/default.jpg'; ?>"
-                                         class="card-img-top" style="height: 200px; object-fit: cover;"
+                                         class="card-img-top"
                                          alt="<?php echo htmlspecialchars($car['car_name']); ?>">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo htmlspecialchars($car['car_name']); ?></h5>
-                                        <div class="car-features mb-3">
-                                            <span class="car-feature"><i class="fas fa-car"></i> <?php echo htmlspecialchars($car['car_type']); ?></span>
-                                            <span class="car-feature"><i class="fas fa-check-circle"></i> <?= __('Available'); ?></span>
+                                        <div class="car-meta mb-3">
+                                            <span class="badge bg-primary"><i class="fas fa-car me-1" aria-hidden="true"></i> <?php echo htmlspecialchars($car['car_type']); ?></span>
+                                            <span class="badge-soft success"><?= __('Available'); ?></span>
                                         </div>
-                                        <div class="car-price mb-3">
-                                            <h4 class="text-primary mb-0">
-                                                Rs. <?php echo number_format($car['price'], 2); ?> <small class="text-muted"><?= __('/day'); ?></small>
-                                            </h4>
+                                        <div class="car-price h5 mb-3">
+                                            DT. <?php echo number_format($car['price'], 0,0); ?> <small class="text-muted"><?= __('/day'); ?></small>
                                         </div>
                                         <?php if (is_user_logged_in()): ?>
-                                            <a href="book.php?car_id=<?php echo $car['car_id']; ?>" class="btn btn-primary w-100">
-                                                <i class="fas fa-calendar-check me-2"></i><?= __('Book Now'); ?>
+                                            <a href="book.php?car_id=<?php echo $car['car_id']; ?>" class="btn btn-primary w-100 btn-elevated">
+                                                <i class="fas fa-calendar-check me-2" aria-hidden="true"></i><?= __('Book Now'); ?>
                                             </a>
                                         <?php else: ?>
                                             <a href="login.php" class="btn btn-outline-primary w-100">
-                                                <i class="fas fa-sign-in-alt me-2"></i><?= __('Login to Book'); ?>
+                                                <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i><?= __('Login to Book'); ?>
                                             </a>
                                         <?php endif; ?>
                                     </div>
@@ -319,8 +276,8 @@ if (
                         <?php endwhile; ?>
                     <?php else: ?>
                         <div class="col-12">
-                            <div class="alert alert-info text-center">
-                                <i class="fas fa-car-side fa-3x mb-3"></i>
+                            <div class="alert alert-info text-center modern-card">
+                                <i class="fas fa-car-side fa-3x mb-3" aria-hidden="true"></i>
                                 <p class="mb-0"><?= __('No cars available matching your criteria'); ?>.</p>
                             </div>
                         </div>
@@ -333,18 +290,25 @@ if (
                             <?php for ($i = 1; $i <= $total_pages; $i++):
                                 $active = $page === $i ? 'active' : '';
                                 $url = "?page=$i"
-                                     . (!empty($_GET['search'])   ? '&search=' . urlencode($_GET['search'])   : '')
-                                     . (!empty($_GET['type'])     ? '&type='   . urlencode($_GET['type'])     : '')
-                                     . (!empty($_GET['min_price'])? '&min_price=' . urlencode($_GET['min_price']) : '')
-                                     . (!empty($_GET['max_price'])? '&max_price=' . urlencode($_GET['max_price']) : '');
+                                    . (!empty($_GET['search'])    ? '&search='    . urlencode($_GET['search'])    : '')
+                                    . (!empty($_GET['type'])      ? '&type='      . urlencode($_GET['type'])      : '')
+                                    . (!empty($_GET['min_price']) ? '&min_price=' . urlencode($_GET['min_price']) : '')
+                                    . (!empty($_GET['max_price']) ? '&max_price=' . urlencode($_GET['max_price']) : '');
                             ?>
                                 <li class="page-item <?php echo $active; ?>">
-                                    <a class="page-link" href="<?php echo $url; ?>"><?php echo $i; ?></a>
+                                    <a 
+                                    class="page-link" 
+                                    href="<?php echo $url; ?>" 
+                                    data-page="<?php echo $i; ?>"
+                                    >
+                                    <?php echo $i; ?>
+                                    </a>
                                 </li>
                             <?php endfor; ?>
                         </ul>
                     </nav>
                 <?php endif; ?>
+
             <?php endif; ?>
         </div>
     </div>
