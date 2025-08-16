@@ -292,4 +292,5 @@ return [
     'Confirm Password' => 'Confirmer le mot de passe',
     'Already have an account?' => 'Vous avez déjà un compte ?',
     'Login here' => 'connexion',
+    'Founded with a vision to make car rentals accessible and hassle-free, we ve grown to become one of the most trusted names in the industry. Our commitment to customer satisfaction and quality service has earned us the loyalty of countless satisfied customers.'=>'Fondée avec l ambition de rendre la location de voiture accessible et sans tracas, nous sommes devenues l une des marques les plus fiables du secteur. Notre engagement envers la satisfaction client et la qualité de notre service nous a valu la fidélité d innombrables clients satisfaits.',
 ];

@@ -1,20 +1,29 @@
+# --- start .htaccess ---
 RewriteEngine On
 RewriteBase /carrentalphp-main/
+DirectoryIndex index.php index.html
 
-# Redirect /index or /index.php (with or without extension) to root /
-RewriteCond %{REQUEST_URI} ^/carrentalphp-main/index(\.php)?$ [NC]
-RewriteRule ^index(\.php)?$ /carrentalphp-main/ [R=301,L]
+# 1) Redirect /index or /index.php to site root for safe methods only (no POST redirect)
+RewriteCond %{THE_REQUEST} \s/+(?:carrentalphp-main/)?index(?:\.php)?[?\s] [NC]
+RewriteCond %{REQUEST_METHOD} !POST
+RewriteRule ^(?:index(?:\.php)?)$ /carrentalphp-main/ [R=302,L]
 
-# 1) Redirect direct browser requests for .php -> extensionless (keep query string)
-#    e.g. /carrentalphp-main/index.php?x=1  ->  /carrentalphp-main/index?x=1
-RewriteCond %{THE_REQUEST} \s/([^\s]+?)\.php[?\s] [NC]
-RewriteRule ^ /%1 [R=301,L,QSA]
+# 2) Redirect direct browser requests for *.php -> extensionless (appearance only)
+#    - Uses THE_REQUEST so internal rewrites won't trigger it
+#    - Skips POST (so form submissions to .php are not turned into GET)
+RewriteCond %{THE_REQUEST} \s/+(?:carrentalphp-main/)?([^\s]+?)\.php[?\s] [NC]
+RewriteCond %{REQUEST_METHOD} !POST
+RewriteRule ^ /carrentalphp-main/%1 [R=302,L,QSA]
 
-# 2) Internally rewrite extensionless URL to the .php file
-#    but don't touch existing files, folders or requests with a dot/extension
+# 3) If request maps to a real file/dir (images, css, existing files) skip further rules
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 4) Internally rewrite extensionless URLs to the .php file (works for ALL methods)
+#    Only when extensionless path doesn't exist and the corresponding .php exists.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^.]+)$ $1.php [L,QSA]
-
-
-
+# --- end .htaccess ---

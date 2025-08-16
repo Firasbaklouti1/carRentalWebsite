@@ -1,3 +1,16 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../../includes/config.php';
+
+// Enforce admin auth BEFORE any output
+if (!isset($_SESSION['logged_in']) || $_SESSION['role'] !== 'admin') {
+    header('Location: ' . SITE_URL . '/login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,17 +32,6 @@
 </head>
 <body>
     <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    
-    if (!isset($_SESSION['logged_in']) || $_SESSION['role'] !== 'admin') {
-        header('Location: ' . SITE_URL . '/login.php');  // points to main login
-        exit();
-    }
-
-    
-    
     // Include navigation
     require_once __DIR__ . '/navigation.php';
     ?>

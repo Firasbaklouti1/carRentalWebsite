@@ -29,9 +29,7 @@ require_once 'includes/init.php';
                     <div class="card-body p-4 p-md-5">
                         <h2 class="h4 mb-3"><?= __('Our Story'); ?></h2>
                         <p class="text-muted mb-0">
-                            <?= __('Founded with a vision to make car rentals accessible and hassle-free, we ve grown to become
-                            one of the most trusted names in the industry. Our commitment to customer satisfaction and
-                            quality service has earned us the loyalty of countless satisfied customers.'); ?>
+                            <?= __('Founded with a vision to make car rentals accessible and hassle-free, we ve grown to become one of the most trusted names in the industry. Our commitment to customer satisfaction and quality service has earned us the loyalty of countless satisfied customers.'); ?>
                         </p>
                     </div>
                 </div>

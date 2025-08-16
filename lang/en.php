@@ -292,4 +292,7 @@ return [
     'Confirm Password' => 'Confirm Password',
     'Already have an account?' => 'Already have an account?',
     'Login here' => 'Login here',
+    'Founded with a vision to make car rentals accessible and hassle-free, we ve grown to become one of the most trusted names in the industry. Our commitment to customer satisfaction and quality service has earned us the loyalty of countless satisfied customers.'=>'Founded with a vision to make car rentals accessible and hassle-free, we ve grown to become
+                            one of the most trusted names in the industry. Our commitment to customer satisfaction and
+                            quality service has earned us the loyalty of countless satisfied customers.',
 ];
