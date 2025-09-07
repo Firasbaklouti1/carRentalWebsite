@@ -27,3 +27,9 @@ access_log
 .env
 .env.local
 .env.*.local
+
+
+#Uploads
+assets/img/cars/
+uploads/booking_documents/
+uploads/user_documents/
