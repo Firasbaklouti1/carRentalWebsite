@@ -47,7 +47,7 @@ If you have a suggestion for the project, we'd love to hear it. Enhancement sugg
 
 1. Clone the repository
 ```bash
-git clone https://github.com/ayushghi4/carrentalphp.git
+git clone https://github.com/Firasbaklouti1/carRentalWebsite.git
 ```
 
 2. Create a new branch
